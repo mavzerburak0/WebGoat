@@ -1,12 +1,21 @@
 ---
-- name: Setup Python
-  uses: actions/setup-python@v2
-  with:
-    python-version: '3.8'    
-- name: REST API Fuzz Testing (RAFT) Action
-  uses: microsoft/raft-action@v4.2
-  with:
-    # Mode tells the action we want to run using our raft local script
-    mode: local
-    arguments: 'job create --file raft-fuzz/run.json'
+name: RAFT action demo
+on:
+    push:
+        branches: [ main, develop ]
+    pull_request:
+        branches: [ main, develop ]
+jobs:
+    raft:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-python@v2
+              with:
+                python-version: '3.8'    
+            - name: REST API Fuzz Testing (RAFT) Action
+              uses: microsoft/raft-action@v4.2
+              with:
+                # Mode tells the action we want to run using our raft local script
+                mode: local
+                arguments: 'job create --file raft-fuzz/run.json'
 
